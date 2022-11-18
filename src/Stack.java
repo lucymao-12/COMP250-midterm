@@ -1,26 +1,31 @@
 import java.util.ArrayList;
+import java.util.Queue;
 
-public class Stack {
-    ArrayList<Object> stack;
-    ArrayList<Object> min = new ArrayList<>();
+public class Stack<E> {
+    ArrayList<E> stack;
+    ArrayList<E> min = new ArrayList<E>();
     int size;
 
     public Stack() {
-        stack = new ArrayList<Object>();
+        stack = new ArrayList<E>();
         this.size = 0;
     }
 
-    public int pop() {
-        int toRemove = (int)stack.remove(stack.size() - 1);
+    public E pop() {
+        E toRemove = stack.remove(stack.size() - 1);
+        /**
         int minEl = (int)min.remove(min.size() - 1);
         if (toRemove != minEl) {
+            if()
             min.add(minEl);
-        }
+         }
+         */
         size--;
         return toRemove;
     }
 
-    public void push(Object in) {
+    public void push(E in) {
+        /**
         int minEl = 0;
         if (size != 0) {
             minEl = (int)min.remove(min.size() - 1);
@@ -33,26 +38,29 @@ public class Stack {
         } else {
             min.add(minEl);
         }
+         */
         stack.add(in);
         size++;
     }
+    /**
     public Object min(){
         int minEl = (int)min.remove(min.size()-1);
         min.add(minEl);
         return minEl;
     }
-    public boolean balancingParentheses(char[] arr){
+     */
+    public static boolean balancingParentheses(char[] arr, Stack<Character> base){
         for(int i = 0; i < arr.length; i ++){
             if(arr[i] == '['){
-                this.push('[');
+                base.push('[');
             }else{
-                if(this.size == 0){
+                if(base.size == 0){
                     return false;
                 }else{
-                    this.pop();
+                    base.pop();
                 }
             }
         }
-        return this.size == 0;
+        return base.size == 0;
     }
 }

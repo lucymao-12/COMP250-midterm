@@ -1,55 +1,61 @@
 import java.util.ArrayList;
 
-public class Queue {
+public class Queue<E> {
     Stack main = new Stack();
     Stack temp = new Stack();
 
-    ArrayList<Integer> array = new ArrayList<Integer>();
+    ArrayList<E> array = new ArrayList<E>();
     int size = 0;
     int head = 0;
 
-    public int dequeue(){
+    public E dequeue(){
         if(this.size == 0){
             throw new RuntimeException("Cannot dequeue from empty queue");
         }
-        int tInt = 0;
-        int returnValue;
+        E elem = null;
+        E returnValue;
         for(int i = 0; i < this.size; i++){
-            tInt = main.pop();
-            temp.push(tInt);
+            elem = (E) main.pop();
+            temp.push(elem);
         }
-        returnValue = temp.pop();
+        returnValue = (E) temp.pop();
         for(int i = 0; i < this.size-1; i++){
-            tInt = temp.pop();
-            main.push(tInt);
+            elem = (E) temp.pop();
+            main.push(elem);
         }
         this.size--;
         return returnValue;
     }
-    public void enqueue(int in){
+    public void enqueue(E in){
         main.push(in);
         this.size++;
     }
-    public void circleEngueue(int in){
+    public void circleEnqueue(E in){
         if(this.size == array.size()){
-            ArrayList<Integer> temp = new ArrayList<Integer>();
+            System.out.println("test");
+            ArrayList<E> temp = new ArrayList<E>();
+            for(int i = 0; i < this.size*2; i++){
+                temp.add(null);
+            }
             for(int i = 0; i < this.size; i++){
                 temp.set(i, array.get((head + i)%this.size));
             }
             head = 0;
             array = temp;
         }
-        array.set((head + size)%this.size, in);
+        array.set((head + this.size)%this.array.size(), in);
         this.size++;
     }
-    public int circleDequeue(){
-        int element;
+    public E circleDequeue(){
+        E element;
         if(this.size <= 0){
             throw new IllegalArgumentException();
         }
+        //element = array.remove(head);
         element = array.get(head);
+        array.set(head, null);
         this.size--;
-        head = (head+1)%this.size;
+        head = (head+1)%this.array.size();
         return element;
     }
     public boolean isEmpty(){
@@ -57,14 +63,20 @@ public class Queue {
     }
 
     public static void main(String[] args) {
-        Queue queue = new Queue();
-        queue.enqueue(5);
-        queue.enqueue(20);
-        queue.enqueue(3);
-        System.out.println(queue.dequeue());
-        queue.enqueue(43);
-        System.out.println(queue.dequeue());
-        System.out.println(queue.dequeue());
-        queue.enqueue(22);
+        Queue<Character> queue = new Queue<Character>();
+        queue.array.add('-');
+        queue.array.add('-');
+        queue.array.add('-');
+        queue.array.add('-');
+        queue.size = 2;
+        queue.array.set(2, 'F');
+        queue.array.set(3, 'C');
+        queue.head = 2;
+        queue.circleEnqueue('P');
+        queue.circleDequeue();
+        queue.circleEnqueue('E');
+        for(Character character : queue.array){
+            System.out.println(character);
+        }
     }
 }
