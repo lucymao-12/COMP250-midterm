@@ -54,7 +54,7 @@ public class Recursion {
             return x*powerXR(x, n-1);
         }
     }
-    public int powerXR2(int x, int n){
+    public static int powerXR2(int x, int n){
         if(n == 0){
             return 1;
         }else if(n == 1){
@@ -62,8 +62,10 @@ public class Recursion {
         }else{
             int temp = powerXR2(x, n/2);
             if(n%2 == 0){
+                System.out.println(2);
                 return temp*temp;
             }else{
+                System.out.println(3);
                 return temp*temp*x;
             }
         }
@@ -99,12 +101,12 @@ public class Recursion {
         }
         return -1;
     }
-    public int[] merge(int[] list1, int[] list2){
+    public static int[] merge(int[] list1, int[] list2){
         int[] newList = new int[list1.length + list2.length];
         int counter = 0;
         int counter1 = 0;
         int counter2 = 0;
-        while(list1.length != 0 && list2.length != 0){
+        while(counter1 < list1.length && counter2 < list2.length){
             if(list1[counter1] < list2[counter2]){
                 newList[counter] = list1[counter1];
                 counter++;
@@ -115,39 +117,55 @@ public class Recursion {
                 counter2++;
             }
         }
-        while(list1.length != 0){
+        while(counter1 < list1.length){
             newList[counter] = list1[counter1];
             counter++;
             counter1++;
         }
-        while(list2.length != 0){
+        while(counter2 < list2.length){
             newList[counter] = list2[counter2];
             counter++;
             counter2++;
         }
         return newList;
     }
-    public int[] mergeSort(int[] list){
+    public static int[] mergeSort(int[] list){
         if(list.length <= 1){
             return list;
         }else{
             int mid = (list.length - 1)/2;
             int[] list1 = getElements(list, 0, mid);
             int[] list2 = getElements(list, mid+1, list.length-1);
+
             list1 = mergeSort(list1);
             list2 = mergeSort(list2);
+            /**
+            System.out.println("list1");
+            for (Integer value : list1){
+
+                System.out.println(value);
+            }
+            System.out.println("list2");
+            for (Integer value : list2){
+                System.out.println(value);
+            }
+             */
             return merge(list1, list2);
         }
     }
-    public int[] getElements(int[] list, int start, int end){
-        int[] returnList = new int[end-start];
-        for(int i = 0; i < end-start; i++){
+    public static int[] getElements(int[] list, int start, int end){
+        int[] returnList = new int[(end-start)+1];
+        for(int i = 0; i <= end-start; i++){
             returnList[i] = list[start+i];
         }
         return returnList;
     }
-    public void quickSort(int[] list, int left, int right){
+    public static void quickSort(int[] list, int left, int right){
         if(left >= right){
+            System.out.println("FINAL");
+            for(Integer value : list){
+                System.out.println(value);
+            }
             return;
         }else{
             int i = placeAndDivide(list, left, right);
@@ -155,7 +173,7 @@ public class Recursion {
             quickSort(list, i+1, right);
         }
     }
-    public int placeAndDivide(int[] list, int left, int right){
+    public static int placeAndDivide(int[] list, int left, int right){
         int pivot = list[right];
         int wall = left - 1;
         for(int i = left; i < right; i++){
@@ -164,13 +182,40 @@ public class Recursion {
                 swap(list, i, wall);
             }
         }
-        swap(list, right, wall+1);
+        list = swap(list, right, wall+1);
+        System.out.println("PLACE AND DIVIDE");
+        for(Integer value : list){
+            System.out.println(value);
+        }
         return wall+1;
     }
-    public void swap(int[] list, int index1, int  index2){
+    public static int[] swap(int[] list, int index1, int  index2){
         int temp = list[index1];
         list[index1] = list[index2];
         list[index2] = temp;
+        return list;
+    }
+    public static boolean isEven(int x){
+         int y = Math.abs(x);
+         if(y==0){
+             return true;
+         }else{
+             return y != 1 && isEven(y-2);
+         }
+     }
+
+    public static void main(String[] args) {
+        System.out.println(isEven(4));
+        //powerXR2(1,116);
+        /**
+        int[] arr = {9, 6, 3, 13, 2, 58, 32, 8, 12, 1};
+        arr = mergeSort(arr);
+        for(Integer value : arr){
+            System.out.println(value);
+        }
+         */
+        int[] arr = {2,6,1,7,3,5,4};
+        quickSort(arr, 0, arr.length-1);
     }
 }
 
