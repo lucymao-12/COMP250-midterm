@@ -62,10 +62,10 @@ public class Recursion {
         }else{
             int temp = powerXR2(x, n/2);
             if(n%2 == 0){
-                System.out.println(2);
+                System.out.println(1);
                 return temp*temp;
             }else{
-                System.out.println(3);
+                System.out.println(2);
                 return temp*temp*x;
             }
         }
@@ -102,6 +102,7 @@ public class Recursion {
         return -1;
     }
     public static int[] merge(int[] list1, int[] list2){
+        System.out.println("MERGE");
         int[] newList = new int[list1.length + list2.length];
         int counter = 0;
         int counter1 = 0;
@@ -130,6 +131,7 @@ public class Recursion {
         return newList;
     }
     public static int[] mergeSort(int[] list){
+        System.out.println("MERGESORT");
         if(list.length <= 1){
             return list;
         }else{
@@ -162,6 +164,7 @@ public class Recursion {
     }
     public static void quickSort(int[] list, int left, int right){
         if(left >= right){
+            // to count what the list looks like after
             System.out.println("FINAL");
             for(Integer value : list){
                 System.out.println(value);
@@ -206,16 +209,21 @@ public class Recursion {
 
     public static void main(String[] args) {
         System.out.println(isEven(4));
-        //powerXR2(1,116);
+        powerXR2(1,116);
         /**
         int[] arr = {9, 6, 3, 13, 2, 58, 32, 8, 12, 1};
         arr = mergeSort(arr);
         for(Integer value : arr){
             System.out.println(value);
         }
+
+        int[] arr = {3,1,4,5,2,6};
+        //quickSort(arr, 0, arr.length-1);
+        arr = mergeSort(arr);
+        for(Integer value : arr){
+            System.out.println(value);
+        }
          */
-        int[] arr = {2,6,1,7,3,5,4};
-        quickSort(arr, 0, arr.length-1);
     }
 }
 

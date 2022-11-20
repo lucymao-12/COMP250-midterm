@@ -9,6 +9,9 @@ public class Trees {
         T element;
         ArrayList<TreeNode> children;
         TreeNode<T> parent;
+        public TreeNode(T element, ArrayList<TreeNode> children, TreeNode<T> parent){
+
+        }
     }
     class TreeNodeFCNS<T>{
         T element;
@@ -43,15 +46,21 @@ public class Trees {
             for(TreeNode<Integer> child : curr.children) stack.push(child);
         }
     }
-    public static void traverserQ(TreeNode<Integer> root){
+    public static void traverseQ(TreeNode<Integer> root){
         MyQueue<TreeNode<Integer>> newQ = new MyQueue<TreeNode<Integer>>();
         newQ.enqueue(root);
         TreeNode<Integer> curr = root;
         while(!newQ.isEmpty()){
             curr = newQ.dequeue();
-            System.out.println(curr);
+            System.out.println(curr.element);
             for(TreeNode<Integer> child : curr.children) newQ.enqueue(child);
         }
+    }
+
+
+    public static void main(String[] args) {
+        //TreeNode<Integer> root = new TreeNode<Integer>();
+
     }
 }
 
